@@ -1,0 +1,31 @@
+# Created by https://www.gitignore.io
+bin
+
+.classpath
+.project
+
+*.pydevproject
+.metadata
+.gradle
+bin/
+tmp/
+*.tmp
+*.bak
+*.swp
+*~.nib
+local.properties
+.settings/
+.loadpath
+
+target/
+
+*.class
+
+# Package Files #
+*.jar
+*.war
+*.ear
+
+node_modules/
+.DS_Store
+.idea
