@@ -3,6 +3,9 @@ Created on 21 oct. 2018
 
 @author: marlorebazaloyola
 '''
+from builtins import sorted
+import string
+import builtins
 
 '''
     Sobre la condicional:
@@ -101,10 +104,58 @@ if __name__ == '__main__':
             cadena[0: len(cadena): -1]: Al ser el paso negativo comienza desde el final
         '''
         print(all(e > 0 for e in arr) and any(str(e) == str(e)[::-1] for e in arr))
-    anyOrAll() 
+    #anyOrAll() 
+    
+    def ginortS():
+        '''
+            En este problema se debe ordenar la cadena ingresada de la siguiente forma: minusculas, mayusculas, impares y pares
+        '''
+        value = input()
+        '''
+            En python los valores booleanos: False y True pueden ser tratados como enteros 0 y 1 respectivamente.
+            Aqui una discusion si debe ser evitado o no: https://stackoverflow.com/a/3175293
+        '''
+        '''
+            Solucion mía:
+            1. primero ordeno x defecto para poder tener las letras y números ordenados de menor a mayor
+            2. vuelvo a ordenar haciendo uso de la funcion "key" si es mayuscula devolverá "1", si es un numero impar devolverá 2
+            y si es un número par devolverá 3
+            3. al momento de imprimir hacemos uso de "*", esto permite enviar la lista desempaquetada al método "print()", como
+            si se estuviera enviando print(valor1, valor2...). 
+            Finalmente hacemos uso del parámetro "sep" para indicar que no haya espacio entre las separaciones de los valores 
+            al momento de imprimirlos
+        '''
+        print(*(sorted(sorted(value), key=lambda v: v.isupper() + (v.isnumeric() and (3 if int(v) % 2 == 0 else 2) ))), sep='')
+        '''
+            Soluciones interesantes (no son mias):
+        '''
+        ''' 1. La misma lógica que el punto 2, pero haciendo uso de operador ">>". leer: https://wiki.python.org/moin/BitwiseOperators '''
+        print(*sorted(value, key=lambda c: (-ord(c) >> 5, c in '02468', c)), sep='')
+        
+        ''' 2. Esta solución devuelve una tupla compuesta x 3 valores:
+        - primer elemento: -1 si es minuscula, 0 si es mayuscula ó 1 si es un número 
+        - segundo elemento: 0 si no es par, 1 si es par
+        - tercer elemento: el caracter en cuestion
+        De esta forma el sorted se aplicará sobre tuplas. Esto es posible en python.
+        '''
+        print(*sorted(value, key=lambda c: (c.isdigit() - c.islower(), c in '02468', c)), sep='')
+        ''' Ejemplo de ordenado de lista de listas'''
+        print(sorted([[1, 1, '2'], [-1, 0, 'b'], [-1, 0, 'a'], [0, 0, 'Z']]))
+        
+        ''' 3. No hay mucha explicación que hacer para esta solución...'''
+        order = 'abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ1357902468'
+        ''' la función index() sobre un string, recibe une subcadena y retorna el menor indice de donde la encontró '''
+        print(*sorted(value, key=order.index), sep='')
+        
+        ''' 4. Pendiente de revisar '''
+        print(*sorted(value, key=(string.ascii_letters + '1357902468').index), sep='')
+        
+        
+        print(builtins.__file__)
+    #ginortS()
     '''
         CONTINUAR AQUI:
-        https://www.hackerrank.com/challenges/ginorts/problem?h_r=next-challenge&h_v=zen&h_r=next-challenge&h_v=zen&h_r=next-challenge&h_v=zen&h_r=next-challenge&h_v=zen&h_r=next-challenge&h_v=zen&h_r=next-challenge&h_v=zen&h_r=next-challenge&h_v=zen&h_r=next-challenge&h_v=zen&h_r=next-challenge&h_v=zen
+        https://www.hackerrank.com/challenges/map-and-lambda-expression/problem?h_r=next-challenge&h_v=zen
         
         DOCMENTACION PYTHON:
         https://docs.python.org/3/tutorial/controlflow.html?highlight=lambda#lambda-expressions
