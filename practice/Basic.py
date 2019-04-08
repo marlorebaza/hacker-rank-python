@@ -69,7 +69,8 @@ if __name__ == '__main__':
             - se declara la variable "_" para indicar que no nos interesa esta variable por lo que no la usaremos
             FUENTE: https://stackoverflow.com/a/5893946
             - rstrip(): remueve los espacios en blanco al final de la cadena "r" de right
-            - map(int, lista): convertirá cada elemento ingresado a entero
+            - map(function, lista): convertirá cada elemento ingresado a entero. 
+            "int" es la función "int(param)" que recibe un parámetro y lo convierte a entero
             Sobre map: https://docs.python.org/3/library/functions.html#map
             - lis(...): casteamos al tipo list los elementos convertidos
             - arr.append(...): agregamos la lista (fila de atributos x elemento) al a arreglo 
@@ -94,14 +95,14 @@ if __name__ == '__main__':
     #sort_athletes()
     
     def anyOrAll():
-        _ = int(input())
+        _ = int(input()) # para este ejercicio es posible ignorar el primer ingreso, así que lo hacemos :)
         arr = list(map(int, input().split()))
         '''
             Obtención de una rebanada
-            cadena[inicio:fin:paso]: 
-            - el valores x defecto = cadena[0: len(cadena): 1]
-            Esto quiere decir que va de inicio a fin de la cadena sumando el paso
-            cadena[0: len(cadena): -1]: Al ser el paso negativo comienza desde el final
+            - cadena[inicio:fin:paso]: valores x defecto son: cadena[0: len(cadena): 1]
+            Esto quiere decir que irá de inicio a fin de la cadena sumando 1 paso
+            - cadena[0: len(cadena): -1]: Al ser el paso negativo comienza desde el final, es decir
+            devolverá la cadena invertida
         '''
         print(all(e > 0 for e in arr) and any(str(e) == str(e)[::-1] for e in arr))
     #anyOrAll() 
@@ -112,9 +113,26 @@ if __name__ == '__main__':
         '''
         value = input()
         '''
-            En python los valores booleanos: False y True pueden ser tratados como enteros 0 y 1 respectivamente.
+            A tener en cuenta:
+            
+            1. En python los valores booleanos: False y True pueden ser tratados como enteros 0 y 1 respectivamente.
             Aqui una discusion si debe ser evitado o no: https://stackoverflow.com/a/3175293
+            Tener en cuenta lo siguiente:
+            - True + 4 => 1 + 4 = 5
+            - False + 4 => 0 + 4 = 4
+            - True and 3 (o cualquier número) será igual al número, en este caso igual a 3
+            - False and 10 (o cualquier número) será igual a False
+            
+            2. sorted(iterable, key, reverse): 
+            Retorna una nueva lista conteniendo todos los items, del objeto iterable proporcionado, en orden ascendente.
+            - iterable: objeto iterable a ordenar
+            - key: función que puede ser proveida para personalizar la ordenación
+            - reverse: si es True, se ordena descendentemente. x defecto es False
+            
+            3. Sobre el uso de asteriscos en python ver: 
+            https://medium.com/understand-the-python/understanding-the-asterisk-of-python-8b9daaa4a558
         '''
+        
         '''
             Solucion mía:
             1. primero ordeno x defecto para poder tener las letras y números ordenados de menor a mayor
@@ -153,9 +171,48 @@ if __name__ == '__main__':
         
         print(builtins.__file__)
     #ginortS()
+    
+    def listComprehensions():
+        x = int(input()) + 1
+        y = int(input()) + 1
+        z = int(input()) + 1
+        n = int(input())
+        '''
+            La lista de comprensiones va de izqueirda a derecha. 
+            El código de abajo es equivalente a esto:
+        '''
+        '''
+        result = []
+        for i in range(x):
+            for j in range(y):
+                for k in range(z):
+                    if (i + j + k != n):
+                        result.append([i, j, k])
+        print(result)
+        '''
+        print([[i, j, k] for i in range(x) for j in range(y) for k in range(z) if (i + j + k != n)])
+    #listComprehensions()
+    
+    def findRunnerUpScore():
+        _ = int(input()) # para este ejercicio es posible ignorar el primer ingreso, así que lo hacemos :)
+        s = sorted(set((map(int, input().split()))), reverse=True)
+        print(s[0] if len(s) == 1 else s[1])
+    #findRunnerUpScore()
+    
+    def nestedLists():
+        students = []
+        for _ in range(int(input())):
+            name = input()
+            score = float(input())
+            students.append({'name': name, 'score': score})
+        uniqueScores = sorted(set(map(lambda e: e['score'], students)))
+        minScore = uniqueScores[0] if len(uniqueScores) == 1 else uniqueScores[1]
+        [print(e['name']) for e in sorted(list(filter(lambda e: e['score'] == minScore, students)), key=lambda e: e['name'])]
+    #nestedLists()
+
     '''
-        CONTINUAR AQUI:
-        https://www.hackerrank.com/challenges/map-and-lambda-expression/problem?h_r=next-challenge&h_v=zen
+        Continua resolviendo los que faltan. Ver si sigues en orden o alternas con los medium:
+        https://www.hackerrank.com/domains/python?filters%5Bstatus%5D%5B%5D=unsolved&badge_type=python
         
         DOCMENTACION PYTHON:
         https://docs.python.org/3/tutorial/controlflow.html?highlight=lambda#lambda-expressions
