@@ -6,6 +6,9 @@ Created on 21 oct. 2018
 from builtins import sorted
 import string
 import builtins
+from _functools import reduce
+import numpy
+from matplotlib.pyplot import step
 
 '''
     Sobre la condicional:
@@ -209,10 +212,118 @@ if __name__ == '__main__':
         minScore = uniqueScores[0] if len(uniqueScores) == 1 else uniqueScores[1]
         [print(e['name']) for e in sorted(list(filter(lambda e: e['score'] == minScore, students)), key=lambda e: e['name'])]
     #nestedLists()
+    
+    def findingPercentage():
+        n = int(input())
+        student_marks = {}
+        for _ in range(n):
+            name, *line = input().split()
+            scores = list(map(float, line))
+            student_marks[name] = scores
+        marks = student_marks[input()]
+        print('%0.2f' % (reduce(lambda x,y: x + y, marks) / len(marks)))
+    #findingPercentage()
+    
+    def tuples():
+        _ = int(input())
+        integer_list = map(int, input().split())
+        print(hash(tuple(integer_list)))
+    #tuples()
+    
+    def minandMax():
+        v = []
+        n, m = input().split()
+        for _ in range(int(n)):
+            v.append(tuple(map(int, input().split())))
+        print(numpy.max(numpy.min(v, axis=1)))
+            
+        '''
+            Sobre numpy: 
+            - fuente: https://www.numpy.org/devdocs/user/quickstart.html
+            - instalación: https://www.scipy.org/install.html#install-system-wide-via-a-mac-package-manager
+            comando: python3.7 -m pip install numpy scipy matplotlib
+            Ejemplo (lo de abajo no es parte del ejercicio):
+        '''
+        a = [[2,5,1], [3,8,3], [1,3,0], [4,0,6]]
+        '''
+                        COL 1    COL 2    COL 3
+            FILA 1      2        5        1
+            FILA 2      3        8        3
+            FILA 3      1        3        0
+            FILA 4      4        0        6
+        '''
+        print(numpy.max(a)) # 8, por defecto axis es igual a None. Retorna un sólo resultado por todos
+        print(numpy.max(a, axis=0)) # [4, 8, 6], Retorna un resultado por cada columna
+        print(numpy.max(a, axis=1)) # [5, 8, 3, 6], Retorna un resultado por fila
+    #minandMax() 
+    
+    def meanVarStd():
+        '''
+            Le indicamos al formateador de impresión de numpy que use la configuración predeterminada de su versión 1.13,
+            en lugar de la versión actual. 
+            Los resultados del problemas se guardaron aparentemente con esa versión, por lo que si no indicamos la versión
+            obtenemos un formato distinto en la salida y provoca la falla de la prueba, incluso cuando las respuesta es correcta.
+        '''
+        numpy.set_printoptions(legacy='1.13')
+        v = []
+        n, m = input().split()
+        for _ in range(int(n)):
+            v.append(tuple(map(int, input().split())))
+        print(numpy.mean(v, axis=1))
+        print(numpy.var(v, axis=0))
+        print(numpy.std(v))
+        '''
+            round(number, 11): redondeamos a 11 decimales
+        '''
+        #print(round(numpy.std(v), 11))
+    #meanVarStd()
+    
+    def dotCross():
+        numpy.set_printoptions(legacy='1.13')
+        N = int(input())
+        A = []
+        B = []
+        for _ in range(N):
+            A.append(tuple(map(int, input().split())))
+        for _ in range(N):
+            B.append(tuple(map(int, input().split())))
+        print(numpy.dot(A, B) ) # haciendo uso de la función numpy.matmul(A, B) también se logre el producto de una matriz
+            
+        '''
+            Lo de abajo ya no esparte del ejecicio:
+            - Ejemplo con arreglos simples (de 2 elementos):
+        '''
+        A = [1,2]
+        B = [3,4]
+        print(numpy.dot(A, B) ) # 1*3 + 2*4 = 11
+        print(numpy.cross(A, B) ) #1*4 - 2*3  = -2
+        '''
+            Lo de abajo ya no esparte del ejecicio:
+            - Ejemplo con arreglos simples (de 3 elementos):
+        '''
+        A = [1,2,3]
+        B = [3,4,3]
+        print(numpy.dot(A, B) ) # 1*3 + 2*4 + 3*3 = 20
+        print(numpy.cross(A, B) ) # (2*3 - 4*3), (3*3 - 3*1), (1*4 - 3*2) = -6. 6, -2
+        '''
+            - Ejemplo con arreglos bi-dimensionales
+            PENDIENTE: Entender como funcionan el producto en arreglos bi-dimensionales
+            En el ejercicio ponen este link sobre multiplicación de matrices: 
+            https://en.wikipedia.org/wiki/Matrix_multiplication#Matrix_product_.28two_matrices.29
+        '''
+        A = [[ 1,2], [3,4]]
+        B = [[ 1,2], [3,4]]
+        print(numpy.dot(A, B) ) # pendiente: cómo funciona?
+        print(numpy.cross(A, B) ) # pendiente: cómo funciona?
+    dotCross()
 
+
+    
+    
+    
     '''
         Continua resolviendo los que faltan. Ver si sigues en orden o alternas con los medium:
-        https://www.hackerrank.com/domains/python?filters%5Bstatus%5D%5B%5D=unsolved&badge_type=python
+        https://www.hackerrank.com/challenges/python-lists/problem
         
         DOCMENTACION PYTHON:
         https://docs.python.org/3/tutorial/controlflow.html?highlight=lambda#lambda-expressions
