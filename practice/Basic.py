@@ -315,7 +315,7 @@ if __name__ == '__main__':
         B = [[ 1,2], [3,4]]
         print(numpy.dot(A, B) ) # pendiente: cómo funciona?
         print(numpy.cross(A, B) ) # pendiente: cómo funciona?
-    dotCross()
+    #dotCross()
 
 
     
