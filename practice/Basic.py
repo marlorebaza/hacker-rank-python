@@ -9,6 +9,7 @@ import builtins
 from _functools import reduce
 import numpy
 from matplotlib.pyplot import step
+from pygments.lexers._vim_builtins import command
 
 '''
     Sobre la condicional:
@@ -317,9 +318,49 @@ if __name__ == '__main__':
         print(numpy.cross(A, B) ) # pendiente: cómo funciona?
     #dotCross()
 
-
+    def lists():
+        N = int(input())
+        list = []
+        for _ in range(N):
+            values = input().split()
+            command = values[0]
+            value1 = int(values[1]) if len(values) > 1 else -1
+            value2 =int(values[2]) if len(values) > 2 else -1
+            if command == "insert":
+                list.insert(int(value1), value2)
+            elif command == "print":
+                print(list)
+            elif command == "remove":
+                list.remove(value1)
+            elif command == "append":
+                list.append(value1)
+            elif command == "sort":
+                list.sort()
+            elif command == "pop":
+                list.pop(value1)
+            else:
+                list.reverse()    
+    #lists()
     
+    def mergeTheTools():
+        s = input()
+        k = int(input())
+        for index in range(0, len(s), k):
+            substring = ""
+            for substringIndex in range(index, index + k):
+                if substringIndex < len(s) and s[substringIndex] not in substring:
+                    substring += s[substringIndex]
+            print(substring)
+    mergeTheTools()
+    '''
+    AABCAAADA
+    3   
+    Sample Output
     
+    AB
+    CA
+    AD
+    '''
     
     '''
         Continua resolviendo los que faltan. Ver si sigues en orden o alternas con los medium:
