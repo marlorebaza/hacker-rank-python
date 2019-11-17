@@ -351,20 +351,28 @@ if __name__ == '__main__':
                 if substringIndex < len(s) and s[substringIndex] not in substring:
                     substring += s[substringIndex]
             print(substring)
-    mergeTheTools()
-    '''
-    AABCAAADA
-    3   
-    Sample Output
+    #mergeTheTools()
     
-    AB
-    CA
-    AD
-    '''
-    
+    def noIdea():
+        n, m = input().split()
+        values = list(map(int, input().split()))
+        A = set(map(int, input().split()))
+        B = set(map(int, input().split()))
+        
+        happinessPoints = 0
+        for value in values:
+            if value in A:
+                happinessPoints+=1
+            if value in B:
+                happinessPoints-=1
+        print(happinessPoints)
+        # Solución con list comprehension
+        print(sum([(value in A) - (value in B) for value in values]))
+    #noIdea()
     '''
         Continua resolviendo los que faltan. Ver si sigues en orden o alternas con los medium:
-        https://www.hackerrank.com/challenges/python-lists/problem
+        RESUELVA ESTA QUE ES UNA HARD: 
+        https://www.hackerrank.com/challenges/matrix-script/problem
         
         DOCMENTACION PYTHON:
         https://docs.python.org/3/tutorial/controlflow.html?highlight=lambda#lambda-expressions
